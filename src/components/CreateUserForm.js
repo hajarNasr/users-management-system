@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { CountryDropdown } from "react-country-region-selector";
 
 const CreateUserForm = ({ hideForm }) => {
   const initUser = {
@@ -39,6 +40,12 @@ const CreateUserForm = ({ hideForm }) => {
           type="email"
           placeholder="Email"
           onChange={changeInputValue}
+        />
+        <CountryDropdown
+          value={user.country}
+          onChange={(country) => {
+            setUser({ ...user, country });
+          }}
         />
         <InputField
           value={user.balance}
