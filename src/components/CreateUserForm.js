@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { CountryDropdown } from "react-country-region-selector";
+import { countries } from "../helper";
 
-const CreateUserForm = ({ hideForm }) => {
+const CreateUserForm = ({ hideForm, userToEdit }) => {
   const initUser = {
     firstname: "",
     lastname: "",
@@ -10,7 +11,7 @@ const CreateUserForm = ({ hideForm }) => {
     balance: "",
     title: "",
   };
-  const [user, setUser] = useState(initUser);
+  const [user, setUser] = useState(userToEdit ? userToEdit : initUser);
 
   const changeInputValue = (key, value) => {
     setUser({ ...user, [key]: value });
@@ -42,7 +43,7 @@ const CreateUserForm = ({ hideForm }) => {
           onChange={changeInputValue}
         />
         <CountryDropdown
-          value={user.country}
+          value={countries[user.country]}
           onChange={(country) => {
             setUser({ ...user, country });
           }}
