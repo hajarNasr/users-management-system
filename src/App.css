@@ -6,3 +6,12 @@ header {
   margin-left: auto;
   padding: 0 30px;
 }
+.add-user-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  cursor: pointer;
+}
