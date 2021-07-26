@@ -14,7 +14,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header title="Users" />
+      <Header title={`Users ${isShowForm ? "- Create New User" : ""}`} />
       <AddUserBtn onClick={showForm} />
       {isShowForm && <CreateUserForm hideForm={hideForm} />}
     </div>
