@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CountryDropdown } from "react-country-region-selector";
-import { countries } from "../helper";
+import { countries, getCountryCode, headers, mainURL } from "../helper";
+import axios from "axios";
 
 const CreateUserForm = ({ hideForm, userToEdit }) => {
   const initUser = {
-    firstname: "",
-    lastname: "",
+    firstName: "",
+    lastName: "",
     email: "",
     country: "",
     balance: "",
@@ -16,9 +17,37 @@ const CreateUserForm = ({ hideForm, userToEdit }) => {
   const changeInputValue = (key, value) => {
     setUser({ ...user, [key]: value });
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
+    user.balance = +user.balance;
+    if (userToEdit) {
+      axios
+        .patch(
+          `${mainURL}/users/${user.id}`,
+          {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            country: user.country,
+            balance: user.balance,
+            title: user.title,
+          },
+          { headers }
+        )
+        .then((resp) => {
+          hideForm();
+        })
+        .catch((err) => console.log(err));
+    } else {
+      axios
+        .post(`${mainURL}/users`, user, {
+          headers,
+        })
+        .then((resp) => {
+          hideForm();
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   return (
@@ -29,36 +58,43 @@ const CreateUserForm = ({ hideForm, userToEdit }) => {
           type="text"
           placeholder="First Name"
           onChange={changeInputValue}
+          id="firstName"
         />
         <InputField
           value={user.lastName}
           type="text"
           placeholder="Last Name"
           onChange={changeInputValue}
+          id="lastName"
         />
         <InputField
           value={user.email}
           type="email"
           placeholder="Email"
           onChange={changeInputValue}
+          id="email"
         />
-        <CountryDropdown
-          value={countries[user.country]}
-          onChange={(country) => {
-            setUser({ ...user, country });
-          }}
-        />
+        <label>
+          <CountryDropdown
+            value={countries[user.country]}
+            onChange={(country) => {
+              setUser({ ...user, country: getCountryCode(country) });
+            }}
+          />
+        </label>
         <InputField
           value={user.balance}
           type="number"
           placeholder="Balance"
           onChange={changeInputValue}
+          id="balance"
         />
         <InputField
           value={user.title}
           type="text"
           placeholder="Title"
           onChange={changeInputValue}
+          id="title"
         />
         <div className="form-btns-wrapper">
           <button onClick={handleSubmit}>Submit</button>
@@ -69,11 +105,9 @@ const CreateUserForm = ({ hideForm, userToEdit }) => {
   );
 };
 
-const InputField = ({ type, value, placeholder, onChange }) => {
+const InputField = ({ type, value, placeholder, onChange, id }) => {
   const handleChange = (e) => {
-    const key = placeholder.replace(/ /g, "").toLowerCase();
-    console.log(e.target.value, key);
-    onChange(key, e.target.value);
+    onChange(id, e.target.value);
   };
 
   return (
