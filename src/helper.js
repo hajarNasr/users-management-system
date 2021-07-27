@@ -1,4 +1,5 @@
-export const countries = {
+const mainURL = "https://mysterious-wildwood-52860.herokuapp.com/v1";
+const countries = {
   BD: "Bangladesh",
   BE: "Belgium",
   BF: "Burkina Faso",
@@ -250,3 +251,19 @@ export const countries = {
   QA: "Qatar",
   MZ: "Mozambique",
 };
+
+const getCountryCode = (country) => {
+  for (const [key, val] of Object.entries(countries)) {
+    if (val === country) {
+      return key;
+    }
+  }
+};
+
+const headers = {
+  headers: {
+    "Content-Type": "application/json",
+  },
+};
+
+export { mainURL, countries, getCountryCode, headers };

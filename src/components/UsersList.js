@@ -1,23 +1,6 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
 import UserItem from "./UserItem";
 
-const UsersList = ({ editUser }) => {
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get(
-        "https://mysterious-wildwood-52860.herokuapp.com/v1/users?page=1&pageSize=20"
-      )
-      .then((resp) => {
-        setUsers(resp.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
+const UsersList = ({ users, editUser }) => {
   return (
     <main>
       <ul className="users-list">

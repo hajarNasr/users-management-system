@@ -6,10 +6,14 @@ const UserItem = ({ user, editUser }) => {
   };
   return (
     <li>
-      <div className="user-img"></div>
+      <div>
+        <img src={user.avatar} alt="" className="user-img" />
+      </div>
       <UserInfo user={user} />
       <UserBalance balance={user.balance} />
-      <button onClick={() => handleEditUser(user)}>Edit</button>
+      <button onClick={() => handleEditUser(user)} className="edit-btn">
+        Edit
+      </button>
     </li>
   );
 };
@@ -17,18 +21,26 @@ const UserItem = ({ user, editUser }) => {
 const UserInfo = ({ user }) => {
   const { firstName, lastName, country, title } = user;
   return (
-    <div>
+    <div className="user-info">
       <p>
         {firstName} {lastName}
       </p>
       <p>{title}</p>
-      <p>{countries[country]}</p>
+      <p>
+        <span>{countries[country]}</span>
+        <img
+          src={`https://www.countryflags.io/${country}/flat/64.png`}
+          alt=""
+        />
+      </p>
     </div>
   );
 };
 
 const UserBalance = ({ balance }) => {
-  return <div>${Number(balance).toLocaleString()}</div>;
+  return (
+    <div className="user-balance">${Number(balance).toLocaleString()}</div>
+  );
 };
 
 export default UserItem;
