@@ -13,6 +13,7 @@ function App() {
   const [users, setUsers] = useState([]);
   const [isShowForm, setIsShowForm] = useState(false);
   const [userToEdit, setUserToEdit] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const showForm = () => setIsShowForm(true);
   const hideForm = () => setIsShowForm(false);
@@ -22,6 +23,7 @@ function App() {
       .get(`${mainURL}/users?page=1&pageSize=20`)
       .then((resp) => {
         setUsers(resp.data);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -40,7 +42,11 @@ function App() {
           isShowForm ? `- ${userToEdit ? "Edit" : "Create New"} User` : ""
         }`}
       />
-      <UsersList users={users} editUser={displayForm} />
+      {isLoading ? (
+        <main className="loading">loading...</main>
+      ) : (
+        <UsersList users={users} editUser={displayForm} />
+      )}
       <AddUserBtn onClick={displayForm} />
       {isShowForm && (
         <CreateUserForm hideForm={hideForm} userToEdit={userToEdit} />
