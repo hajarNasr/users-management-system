@@ -1,3 +1,7 @@
+body,
+.form-wrapper {
+  background: linear-gradient(to right, #2c3e50, #bdc3c7);
+}
 header {
   position: fixed;
   right: 0;
@@ -7,24 +11,29 @@ header {
   margin-left: auto;
   padding: 0 30px;
   z-index: 99;
-  color: #f9f871;
-  background-color: #444655;
+  color: #bfd1e5;
 }
 .add-user-btn {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   cursor: pointer;
-  background-color: #f9f871;
+  background-color: #ffdb59;
   border: none;
   font-weight: bold;
+  color: rgb(63, 63, 63);
+  box-shadow: 1px 1px 1px 0px rgba(63, 62, 62, 0.2);
+  transition: box-shadow 0.5s ease;
+}
+.add-user-btn:hover {
+  box-shadow: 2px 1px 1px 7px rgba(63, 62, 62, 0.2);
 }
 .form-wrapper {
   position: fixed;
-  background: #ffffff;
+  background-color: gray;
   display: flex;
   margin: 0;
   inset: 0;
@@ -36,7 +45,6 @@ header {
   margin: auto;
   border-radius: 6px;
   padding: 20px 5px;
-  box-shadow: 0 0 10px #cccccc;
   padding: 50px 0;
 }
 
@@ -68,26 +76,31 @@ form select {
   cursor: pointer;
 }
 .form-btns-wrapper button:first-child {
-  background-color: lightgreen;
+  background-color: #8ceec1;
   margin-right: 8px;
 }
 .form-btns-wrapper button:last-child {
-  background-color: lightblue;
+  background-color: rgba(173, 216, 230, 0.651);
 }
 main {
   width: 70%;
   margin: auto;
   text-align: center;
 }
-.users-list {
+.users-list,
+.loading {
   list-style: none;
   padding-top: 100px;
+  padding-left: 0;
+}
+.loading {
+  color: white;
 }
 .users-list li {
-  border: 1px solid #a17fa1;
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 5px;
+  background: #f8f9fa;
 }
 .user-img {
   width: 90px;
@@ -115,5 +128,33 @@ main {
 }
 .edit-btn {
   margin-top: 10px;
-  background-color: #b6a6b5;
+  background-color: #96b7db;
+  min-width: 30%;
+  height: 35px;
+  font-size: large;
+}
+
+@media (max-width: 1000px) {
+  main {
+    width: 90%;
+  }
+  .add-user-btn {
+    right: 10px;
+    bottom: 10px;
+  }
+  .form-wrapper form {
+    width: 50%;
+  }
+}
+
+@media (max-width: 700px) {
+  .form-wrapper form {
+    width: 70%;
+  }
+}
+
+@media (max-width: 400px) {
+  .edit-btn {
+    min-width: 45%;
+  }
 }
